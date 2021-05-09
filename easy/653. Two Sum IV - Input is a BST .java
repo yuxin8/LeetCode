@@ -86,3 +86,34 @@ class Solution {
         inorder(root.right, list1);        
     }
 }
+
+
+/*way 3: Set HashSet, Queue LinkedList, Breadth-First Search
+   Time complexity : O(n). traverse over the whole tree 1 time in the worst case. n refers to the number of nodes in the given tree.
+   Space complexity : O(n). The size of the set can grow at most up to n.
+*/
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        Set <Integer> set = new HashSet();
+        Queue <TreeNode> Queue1 = new LinkedList<TreeNode>();    
+        
+        TreeNode tempNode;
+        Queue1.add(root);
+       
+        while (!Queue1.isEmpty()) {
+            tempNode = Queue1.poll();
+            
+            if(set.contains(k - tempNode.val))
+                return true;
+            else
+                set.add(tempNode.val);
+            
+            if (tempNode.left != null)
+                Queue1.add(tempNode.left);
+            if (tempNode.right != null)
+                Queue1.add(tempNode.right);
+        }  
+        return false;
+    }
+    
+}
