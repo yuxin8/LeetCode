@@ -14,7 +14,7 @@ Output: [1,2]
 
 */
 
-//way 1.0
+//way 1: two pointers
 /*
 Complexity analysis
 
