@@ -12,18 +12,19 @@ Node* newNode(int data) {
 	return temp;
 }
 int main() {
-	Node *root = newNode(1);
-	root->left = newNode(2);
-	root->right = newNode(3);
-	root->left->left = newNode(4);
-	root->left->right = newNode(5);
-	root->right->left = newNode(9);
-	root->right->right = newNode(10);
+	Node *root = newNode(5);
+	root->left = newNode(3);
+	root->right = newNode(6);
+	root->left->left = newNode(2);
+	root->left->right = newNode(4);
+//	root->right->left = newNode(9);
+	root->right->right = newNode(7);
 	cout << "Level Order traversal of binary tree is \n";
 	queue<Node *> q1;
+	Node* node;
 	q1.push(root);
 	while (!q1.empty()){
-		Node *node = q1.front();
+		node = q1.front();
 		cout << node->data << " ";
 		q1.pop();
 		if (node->left != NULL)
@@ -37,5 +38,5 @@ int main() {
 /*
 output: 
 Level Order traversal of binary tree is 
-1 2 3 4 5 9 10 
+5 3 6 2 4 7
 */
