@@ -17,15 +17,6 @@ Output: false 0
 Input: root = [2,1,3], k = 3
 Output: true 1
 
-
-Complexity Analysis:
-    Time complexity : O(n). The entire tree is traversed only once in the worst case. Here, n refers to the number of nodes in the given tree.
-    Space complexity : O(n). The size of the set can grow upto n in the worst case.
-*/
-
-
-
-/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -40,6 +31,11 @@ Complexity Analysis:
  *     }
  * }
  */
+
+/* way 1: HashSet, recursive traversal, Depth First Traversals
+   Time complexity : O(n). The entire tree is traversed only once in the worst case. Here, n refers to the number of nodes in the given tree.
+   Space complexity : O(n). The size of the set can grow upto n in the worst case.
+*/
 class Solution {
     public boolean findTarget(TreeNode root, int k) {
         Set < Integer > set = new HashSet();
@@ -52,5 +48,41 @@ class Solution {
             return true;
         set.add(root.val);
         return find(root.left, k, set) || find(root.right, k, set);
+    }
+}
+
+
+/* way 2: List, inorder Depth First Traversals
+   Time complexity : O(n). We need to traverse over the whole tree once to do the inorder traversal. Here, n refers to the number of nodes in the given tree.
+   Space complexity : O(n). The sorted list will contain n elements.
+*/
+
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        List <Integer> list = new ArrayList();
+        inorder(root, list);
+        
+        int l = 0, r = list.size() - 1;
+        
+        while (l < r) {
+            int sum = list.get(l) + list.get(r);
+            
+            if(sum == k) {
+                return true;
+            } else if (sum < k) {
+                l++;
+            } else if (sum > k) {
+                r--;
+            }
+        }  
+        return false;
+    }
+    
+    public void inorder(TreeNode root, List<Integer> list1) {
+        if (root == null)
+            return;
+        inorder(root.left, list1);
+        list1.add(root.val);     //inorder 
+        inorder(root.right, list1);        
     }
 }
