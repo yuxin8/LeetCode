@@ -40,3 +40,32 @@ class Solution {
         return value;
     }
 }
+
+
+
+/* way 2: two pointers. Array.sort()
+Time Complexity: O(nlogn) to sort the array. The two pointers approach itself is O(n), so the time complexity would be linear if the input is sorted. Overall for this one is O(nlogn).
+Space Complexity: O(logn) to O(n), depending on the implementation of the sorting algorithm. The two pointers approach itself is O(1).
+*/
+class Solution {
+    public int twoSumLessThanK(int[] nums, int k) {
+        
+        Arrays.sort(nums);
+        
+        int value = -1;
+        int i = 0;
+        int j = nums.length-1;
+        int sum = 0;
+        while (i < j){
+            sum = nums[i] + nums[j];
+            if (sum < k) {
+                value = Math.max(value, sum);
+                i++;
+            }else{
+                j--;
+            }
+        }
+        return value;
+    }
+}
+
