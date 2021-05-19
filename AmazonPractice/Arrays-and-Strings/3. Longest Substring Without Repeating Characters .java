@@ -34,8 +34,8 @@ i.e. [i, j)[i,j) (left-closed, right-open).
 A sliding window is a window "slides" its two boundaries to the certain direction. 
 For example, if we slide [i, j)[i,j) to the right by 11 element, then it becomes [i+1, j+1)[i+1,j+1) (left-closed, right-open).
 
-Time Complexity: O(n^2)
-Space Complexity: O(1)
+Time Complexity: not O(n^2), it is O(2n)=O(n). In the worst case, each character will be visited twice by left and right.
+Space Complexity: O(1). O(min(m,n)). O(k) space for the sliding window. The size of the sliding window: the size of the string n ~ the size of the charset/alphabet m.
 */
 class solution {
   public int lengthOfLongestSubstring (String s) {
