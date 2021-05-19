@@ -49,7 +49,7 @@ class solution {
       while (chars[r] > 1) { //move left, until there is no repeat chars[r] in a window.
         char l = s.charAt(left);
         chars[l]--;
-        left++;
+        left++; //index left and index right, both move from left -> right direction for one time.
       }
       result = Math.max(result, right - left + 1);
       right++;
