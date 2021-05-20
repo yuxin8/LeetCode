@@ -39,7 +39,7 @@ Space Complexity: O(1). O(min(m,n)). O(k) space for the sliding window. The size
 */
 class solution {
   public int lengthOfLongestSubstring (String s) {
-    int[] chars = new int[128];
+    int[] chars = new int[128]; //Store the frequency of each char.
     int left = 0, right = 0, result = 0;
     
     while (right < s.length()) {
@@ -59,6 +59,46 @@ class solution {
 }
 
 
+/* Way 1.1: Sliding Window + Table 128
+
+Commonly used tables are:
+int[26] for Letters 'a' - 'z' or 'A' - 'Z'
+int[128] for ASCII
+int[256] for Extended ASCII
+
+Time Complexity: O(n).
+Space Complexity: O(1). O(m). m is the size of the charset.
+
+*/
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Integer[] chars = new Integer[128]; //store the current index in s, to Interger[] chars. Not frequencey.
+
+        int left = 0;
+        int right = 0;
+        int res = 0;
+     
+        while (right < s.length()) {
+            char ch = s.charAt(right);
+            Integer index = chars[ch];
+         
+         // index = null, then current ch hasn't appeared yet.
+         // index should in between [left, right)
+         //if (index != null), test with "abba", the result would be wrong.
+            if (index != null && index >= left && index < right) {
+                left = index + 1;
+            }
+
+            res = Math.max(res, right - left + 1);
+
+            chars[ch] = right;
+            right++;
+        }
+        return res;
+    }
+}
+
+
 /* way 2: Sliding Window + HashMap
 If s[j] has a duplicate in the range [i,j), called s[j']. Instead of increasing i one by one,
 we can skip all elements in [i,j'], and let i to be j' + 1.
@@ -75,7 +115,8 @@ class solution {
     char ch = s.charAt(right);
     
     if(map1.containsKey(ch)) {
-     //can't be left = map1.get(ch) + 1, because index left can't move back to left direction, can only move to right direction.
+     //can't be left = map1.get(ch) + 1, because index left can't move back to left direction, can only move to right direction. 
+     //if test with "abba", then  left = map1.get(ch) + 1 would be wrong.
      left = Math.max(left, map1.get(ch) + 1); //should + 1 here because the left bounder should move to the repeat char one more right.
     }
     map1.put(ch, right);
