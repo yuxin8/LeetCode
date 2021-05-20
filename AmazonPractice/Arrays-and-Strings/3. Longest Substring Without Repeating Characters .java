@@ -27,7 +27,7 @@ s consists of English letters, digits, symbols and spaces.
 
 */
 
-/* Way 1: Approach 2: Sliding Window
+/* Way 1: Sliding Window
 A sliding window is an abstract concept commonly used in array/string problems. 
 A window is a range of elements in the array/string which usually defined by the start and end indices, 
 i.e. [i, j)[i,j) (left-closed, right-open). 
@@ -57,4 +57,32 @@ class solution {
     return result;
   }
 }
+
+
+/* way 2: Sliding Window + HashMap
+If s[j] has a duplicate in the range [i,j), called s[j']. Instead of increasing i one by one,
+we can skip all elements in [i,j'], and let i to be j' + 1.
+
+Time Complexity: O(n).
+Space Complexity: O(1).
+*/
+class solution {
+  public int lengthOfLongestSubstring (String s) {
+   Map<Character, Interger> map1 = new HashMap<>(); //build a HashMap <each char in s, its index in s>
+   int result = 0;
+   
+   for (int right = 0, left = 0; right < s.length(); right++) {
+    char ch = s.charAt(right);
+    
+    if(map1.containsKey(ch)) {
+     //can't be left = map1.get(ch) + 1, because index left can't move back to left direction, can only move to right direction.
+     left = Math.max(left, map1.get(ch) + 1); //should + 1 here because the left bounder should move to the repeat char one more right.
+    }
+    map1.put(ch, right);
+    result = Math.max(result, right - left + 1);
+   }
+   return result;
+  } 
+}
+
 
