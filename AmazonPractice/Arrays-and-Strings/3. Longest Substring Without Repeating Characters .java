@@ -51,7 +51,7 @@ class solution {
         chars[l]--;
         left++; //index left and index right, both move from left -> right direction for one time.
       }
-      result = Math.max(result, right - left + 1);
+      result = Math.max(result, right - left + 1); //now no repeat char in a window
       right++;
     }
     return result;
