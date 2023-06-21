@@ -1,0 +1,26 @@
+409. Longest Palindrome
+
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        
+        //hashmap: T=O(N) number of string, S=O(M) number of unique char in string s
+        int odd = 0;
+        map<char, int> m;
+        for (char ch:s){
+            m[ch]++;
+            //count odd number. >=1.
+            if (m[ch] % 2 == 1){
+                odd++;
+            }
+            else{
+                odd--;
+            }
+        }
+        if (odd >= 2){
+            //only need max 1 odd char
+            return s.length()-odd+1;
+        }
+        return s.length();
+    }
+};
