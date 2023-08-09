@@ -1,0 +1,36 @@
+1. Two Sum
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        //hash map, T=O(n), S=O(n)
+        vector<int> result;
+        map<int, int> numHash;
+        for (int i=0; i<nums.size(); i++){
+            numHash.insert({nums[i], i});
+        }
+        for (int i=0; i<nums.size(); i++){
+            int complement = target - nums[i];
+            if (numHash.contains(complement) && numHash.at(complement)!=i){
+                result.push_back(i);
+                result.push_back(numHash.at(complement));
+                return result;
+            }
+        }
+        return result;
+/*
+        //brute force. T=O(n^2), S=O(1)
+        vector<int> result;
+        for (int i=0; i<nums.size(); i++){
+            for (int j=i+1; j<nums.size(); j++){
+                if(nums[i] + nums[j] == target){
+                    result.push_back(i);
+                    result.push_back(j);
+                    return result;
+                }
+            }
+        }
+        return result;
+        */
+    }
+};
