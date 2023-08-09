@@ -1,0 +1,40 @@
+70. Climbing Stairs
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        //same as 509
+        //Iterative bottom-up approach. min space. T=O(n), S=O(1)
+        if (n <= 2){
+            return n;
+        }
+        int ways = 0;
+        int prev1 = 1;
+        int prev2 = 2;
+        for (int i=3; i<=n; i++){
+            ways = prev1 + prev2;
+            prev1 = prev2;
+            prev2 = ways;
+        }
+        return ways;
+
+ 
+/*      DP. T=O(n) 1 loop, S=O(n) array size
+        One can reach ith step in one of the two ways:
+        1.Taking a single step from (i−1)th step.
+        2.Taking a step of 2 from (i−2)th step.
+        So, the total number of ways to reach ith step = sum of ways of reaching (i−1)th step and ways of reaching (i−2)th step.
+        Let dp[n] denotes the number of ways to reach on ith step:
+        dp[n]=dp[n−1]+dp[n−2]
+        
+        int dp[n+2];
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i=3; i<=n; i++){
+            dp[i] = dp[i-1] + dp[i-2];
+        }
+        return dp[n];
+*/
+
+    }
+};
