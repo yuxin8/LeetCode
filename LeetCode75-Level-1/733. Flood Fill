@@ -1,0 +1,32 @@
+733. Flood Fill
+
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        //DFS
+/*
+        T = O(mn) worst case visit all pixels, S = O(mn) the size of the implicit call stack when calling dfs.
+        Perform a DFS on the source cell. Continue the DFS if:
+        1. Next cell is within bounds.
+        2. Next cell is the same color as source cell.
+        3. New color == original color and if the DFS is done on it, there will be an infinite loop. If new color == original color, there is nothing to be done and we can simply return the image.
+*/
+        int oldColor = image[sr][sc];
+        if (oldColor == newColor){
+            return image;
+        }
+        dfs (image, sr, sc, newColor, oldColor);
+        return image;
+    }
+    void dfs (vector<vector<int>>& image, int sr, int sc, int newColor, int oldColor){
+        if (sr<0 || sr>=image.size() || sc<0 || sc>=image[0].size() || image[sr][sc] != oldColor){
+            return;
+        }
+        image[sr][sc] = newColor;
+        dfs (image, sr+1, sc, newColor, oldColor);
+        dfs (image, sr-1, sc, newColor, oldColor);
+        dfs (image, sr, sc+1, newColor, oldColor);
+        dfs (image, sr, sc-1, newColor, oldColor);
+    }
+
+};
