@@ -20,7 +20,10 @@ public:
         }
         //sliding window
         for (int i=0; i<len; i++){
+            // add one letter from the right side of the window
             shash[s[i]-'a']++;
+            // remove one letter from the left side of the window
+            // i-window is the extra left letter, remove it.
             if (i >= window){
                 shash[s[i-window] - 'a']--;
             }
