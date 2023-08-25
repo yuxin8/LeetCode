@@ -24,6 +24,7 @@ public:
             shash[s[i]-'a']++;
             // remove one letter from the left side of the window
             // i-window is the extra left letter, remove it.
+//i is index starting from 0. window is size starting from 1. eg: i=window=3. if i=window, still need to remove a letter from the left
             if (i >= window){
                 shash[s[i-window] - 'a']--;
             }
