@@ -1,0 +1,73 @@
+151. Reverse Words in a String
+
+class Solution {
+public:
+    string reverseWords(string s) {
+/*        //out-of-place, return a new string ans. two-pointer, T=O(n), S=O(n)
+        //trim spaces -> get a word -> place it on the left of the result string
+        int n = s.size();
+        string ans = "";
+        int L=0;
+        while(L<n){
+            // remove leading spaces
+            while(s[L]==' ' && L<n) {
+                L++;
+            }
+            // condition to remove trailing spaces
+            if(L>=n) {
+                break;
+            }
+            //sssa
+            int r=L;
+            string word = "";
+            // r<n, not L<n
+            while(s[r]!=' ' && r<n) {
+                word += s[r];
+                r++;
+            }
+            L=r+1;
+            if(!ans.empty()){
+                //where reverse happen
+                ans = word + ' ' + ans;
+            } else {
+                ans =  word;
+            }
+        }
+        return ans;
+*/
+    // in-place. return original string s, T=O(n), S=O(1)
+    
+    // reverse whole string.
+    // reverse() [begin, end)
+    reverse(s.begin(), s.end());
+
+    int n = s.size();
+    int start = 0;
+    for (int i = 0; i < n; i++) {
+        // remove/skip leading spaces
+      if (s[i] != ' ') {
+        // go to the beginning of the word. if it's not the first word, add a ' '
+        if (start != 0) {
+            s[start] = ' ';
+            start++;
+        }
+        // go to the end of the word
+        int end = i;
+        while (end < n && s[end] != ' ') {
+            s[start] = s[end];
+            start++;
+            end++;
+        }
+        // reverse the word
+        reverse(s.begin() + start - (end - i), s.begin() + start);
+
+        // move to the next word
+        i = end;
+      }
+    }
+    s.erase(s.begin() + start, s.end());
+    return s;
+
+    }
+
+};
