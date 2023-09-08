@@ -1,0 +1,30 @@
+186. Reverse Words in a String II
+
+class Solution {
+public:
+    void reverseWords(vector<char>& s) {
+        // in-place. return original vector s. T=O(n), S=O(1)
+        // reverse whole string, then reverse each word
+        reverse(s.begin(), s.end());
+
+        // 'start' points to the beginning of the current word
+        // 'end' points to the position just after the current word
+        int start = 0, end = 0;
+        int n = s.size();
+
+        while (start < n) {
+
+            // Move 'end' to the position just after the current word
+            while (end < n && s[end] != ' ') {
+                end++;
+            }
+            // now, s[end] == ' '.
+            // reverse() [start, end)
+            reverse(s.begin() + start, s.begin() + end);
+
+            // Move 'start' and 'end' to the beginning of the next word
+            end++;
+            start = end;
+        }
+    }
+};
