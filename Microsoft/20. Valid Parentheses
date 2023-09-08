@@ -1,0 +1,25 @@
+20. Valid Parentheses
+
+class Solution {
+public:
+    bool isValid(string s) {
+        
+        // use stack. FILO. T=O(n), S=O(n)
+        stack<char> sign;
+        for (char ch:s){
+            if (ch == '(' || ch == '{' || ch == '['){
+                sign.push(ch);
+            }
+            else{ 
+                if (sign.empty() || (ch==')'&&sign.top()!='(') ||
+                 (ch=='}'&&sign.top()!='{') || (ch==']'&&sign.top()!='[')){
+                    return false;
+                } 
+                // means find the match left side sign, should pop it out.
+                sign.pop(); // must pop() in this condition.
+            }
+            
+        }
+        return sign.empty(); // when s="{[[[["
+    }
+};
