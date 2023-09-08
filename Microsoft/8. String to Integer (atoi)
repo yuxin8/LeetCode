@@ -1,0 +1,34 @@
+8. String to Integer (atoi)
+
+class Solution {
+public:
+    int myAtoi(string s) {
+        //T=O(n) worst case visit each char in s & for each char we spend a constant amount of time, S=(1) space for sign & result
+        int result = 0; // need assign an initial value because "10*result later as a start.
+        int num = 0;
+        int sign = 1; //if no '+', this still should be a positive number by default.
+        int i = 0;
+        // ignore any leading whitespace.
+        while (i<s.size() && isspace(s[i])){
+            i++;}
+
+        if (i<s.size() && s[i]=='+'){           
+            sign = 1;
+            i++;
+        } else if (i<s.size() && s[i]=='-'){
+            sign = -1;
+            i++;}
+
+        while (i<s.size() && isdigit(s[i])){
+            num = s[i] - '0';
+            //check overflow & underflow conditions.
+            if ((result > INT_MAX/10) || (result == INT_MAX/10 && num > INT_MAX%10)){
+                return sign == 1? INT_MAX:INT_MIN;
+            }
+            result = 10 * result + num;
+            i++;
+        }
+
+        return sign * result;
+    }
+};
