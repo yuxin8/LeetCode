@@ -1,0 +1,68 @@
+125. Valid Palindrome
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+
+        //two pointer. T=O(n), S=O(1)
+        int L=0;
+        int R=s.size()-1;
+        while (L<R){
+            while(L<R && !isalnum(s[L])){
+                L++;
+            }
+            while(L<R && !isalnum(s[R])){
+                R--;
+            }
+            if (tolower(s[L]) != tolower(s[R])){
+                return false;
+            }
+            //update value L & R
+            L++;
+            R--;
+        }
+        return true;
+
+/*
+        vector<char> removedS;
+        for (int i=0; i<s.size(); i++){
+            if (isalnum(s[i])){
+                removedS.push_back(tolower(s[i]));
+            }
+        }
+        if (removedS.size() == 0){
+            return true;
+        }
+        
+        for (int i=0; i<removedS.size()/2+1; i++){
+            if (removedS[i] != removedS[removedS.size()-1-i]){
+                return false;
+            }
+        }
+        return true;
+*/
+
+/*        //T=O(n), S=O(n)
+        //build new removed string.
+        vector<char> removedS;
+        for (int i=0; i<s.size(); i++){
+            if (s[i]>='A' && s[i]<='Z'){
+                removedS.push_back(tolower(s[i]));
+            }
+            if ((s[i]>='a' && s[i]<='z') || (s[i]>='0' && s[i]<='9')){
+                removedS.push_back(s[i]);
+            }
+        }
+        if (removedS.size() == 0){
+            return true;
+        }
+        
+        for (int i=0; i<removedS.size(); i++){
+            if (removedS[i] != removedS[removedS.size()-1-i]){
+                return false;
+            }
+        }
+        return true;
+*/
+    }
+};
