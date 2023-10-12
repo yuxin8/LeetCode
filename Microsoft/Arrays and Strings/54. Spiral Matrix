@@ -15,12 +15,15 @@ public:
         int col = matrix[0].size();
         vector<int> ans;
 
+        //when row * col == 0, means no more row/col need to be added.
         while (row * col > 0){
+            //add a row
             for (int c=0; c<col; c++){
                 j += direction;
                 ans.push_back(matrix[i][j]);               
             }
             row--;
+            //add a col
             for (int r=0; r<row; r++){
                 i += direction;
                 ans.push_back(matrix[i][j]);              
