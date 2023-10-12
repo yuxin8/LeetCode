@@ -1,0 +1,41 @@
+49. Group Anagrams
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+
+        //T=O(nk) n:length of strs. k:max length of a string in strs.
+        //S=O(nk) ans.
+        vector<vector<string>> ans;
+        map<vector<int>, vector<string>> mp;
+
+        for (auto s:strs){
+            //must initialize the count array inside the for loop. otherwise, next time, it will increase to 2, or 3.
+            vector<int> count (26,0); // key
+            for (auto ch:s){
+                count[ch-'a']++;
+            }
+            mp[count].push_back(s);
+        }
+        for (auto word:mp){
+            ans.push_back(word.second);
+        }
+        return ans;
+ /*       //T=O(n*klogk) n:length of strs. k:max length of a string in strs.
+        //S=O(nk) ans.
+        vector<vector<string>> ans;
+        map<string, vector<string>> mp;
+
+        for (auto s:strs){
+            string key = s;
+            //T for sort() in C++ is klogk.
+            sort(key.begin(), key.end()); //this is how to sort each char order in a string.
+            mp[key].push_back(s);
+        }
+        for (auto word:mp){
+            ans.push_back(word.second);
+        }
+        return ans;
+        */
+    }
+};
