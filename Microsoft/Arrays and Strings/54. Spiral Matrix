@@ -1,0 +1,33 @@
+54. Spiral Matrix
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        //T=O(mn), S=O(1) not n as we don't include the output array in the space complexity.
+        //思路:2 movement patterns: 
+        //1. right+down. Increment either the row or column by 1. After we move horizontally the number of possible vertical steps decrease by 1.
+        //2. left+up. Increment either the row or column by -1. After we move vertically the number of possible horizontal steps decrease by 1.
+        //When we run out of either vertical steps or horizontal steps we reach the end.
+        int i = 0;
+        int j = -1;
+        int direction = 1;//flag
+        int row = matrix.size();
+        int col = matrix[0].size();
+        vector<int> ans;
+
+        while (row * col > 0){
+            for (int c=0; c<col; c++){
+                j += direction;
+                ans.push_back(matrix[i][j]);               
+            }
+            row--;
+            for (int r=0; r<row; r++){
+                i += direction;
+                ans.push_back(matrix[i][j]);              
+            }
+            col--;
+            direction *= -1;
+        }
+        return ans;
+    }
+};
