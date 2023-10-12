@@ -1,0 +1,76 @@
+73. Set Matrix Zeroes
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        //don't know which cell is 0.
+        //T=O(nm), S=O(1)
+        //use first row & col as mark.
+        int r = matrix.size();
+        int c = matrix[0].size();
+        bool firstRow = false;
+        bool firstCol = false;
+
+        //check if first row/col contains '0'. later will use them as marks.
+        for (int i=0; i<r; i++){
+            if (matrix[i][0] == 0){
+                firstCol = true;
+            }
+        }
+        for (int i=0; i<c; i++){
+            if (matrix[0][i] == 0){
+                firstRow = true;
+            }
+        }
+        //iterate all the cells and mark the corresponding first row/column cell in case of a cell with zero value.
+        for (int i=1; i<r; i++){
+            for (int j=1; j<c; j++){
+                if (matrix[i][j] == 0){
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
+                }
+            }
+        }
+        //iterate the matrix we got from the above steps and mark respective cells zeroes. use first row & col marks, to change all corresponding rows & cols to be all '0'.
+        for (int i=1; i<r; i++){
+            for (int j=1; j<c; j++){
+                if (matrix[0][j] == 0 || matrix[i][0] == 0){
+                    matrix[i][j] = 0;                   
+                }
+            }
+        }
+        //check if the original first row & col has '0'. then change them to '0'        
+        if (firstCol == true){
+            for (int i=0; i<r; i++){           
+                matrix[i][0] = 0;
+            }
+        }
+        if (firstRow == true){
+            for (int i=0; i<c; i++){
+                matrix[0][i] = 0;
+            }
+        }
+
+/*        //T=O(nm), S=O(m+n)
+        int n=matrix.size(),m=matrix[0].size();
+	    vector<int>row(n,0),col(m,0);
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(matrix[i][j]==0){
+                    row[i]=1;
+                    col[j]=1;
+                }
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(row[i]==1 || col[j]==1){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+*/
+    }
+};
