@@ -1,0 +1,53 @@
+103. Binary Tree Zigzag Level Order Traversal
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        //102. BFS, level order travesal, interation. T=O(N), S=O(N). 没法用recursion.
+        //queue FIFO, stack LIFO
+        // bfs - queue, dfs - stack
+        vector<vector<int>> result;
+        bool leftToRight = true;
+        if(!root){
+            return result;
+        }
+        //level order travesal
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        while (!q.empty()){
+
+            int n = q.size();
+            vector<int> level(n);
+            for (int i=0; i<n; i++){
+                TreeNode* cur = q.front();
+                q.pop();
+
+                int pos = (leftToRight) ? i : ((n - 1) - i);
+                level[pos] = cur->val;
+
+          //      level.push_back(cur->val);
+                if(cur->left){
+                    q.push(cur->left);
+                }
+                if(cur->right){
+                    q.push(cur->right);
+                }
+            }
+            leftToRight = !leftToRight;
+            result.push_back(level);
+        }
+        return result;
+    }
+};
